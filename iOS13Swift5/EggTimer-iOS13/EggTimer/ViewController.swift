@@ -7,45 +7,77 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
     
-    var cookTimer: Timer?
-
+    @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var timerLabel: UILabel!
     
-    var eggTimes : [String : Int] = ["Soft": 5, "Medium": 7, "Hard": 12]
-    let softTime = 5
-    let mediumTime = 7
-    let hardTime = 12
-
+    var player: AVAudioPlayer!
+    var secondsRemaining = 0
+    var minutesRemaining = 0
+    var totalTime = 0
+    let eggTimes : [String : Int] = ["Soft": 5, "Medium": 7, "Hard": 12]
+    var timer = Timer()
+    var timePassed = 0
+    
     @IBAction func hardnessSelected(_ sender: UIButton) {
         
+        progressBar.progress = 0.0
+        timePassed = 0
+        timerLabel.text = ""
+        timer.invalidate()
+
         let hardness = sender.currentTitle!
+        totalTime = eggTimes[hardness]! * 60
+        
      
-        let result = eggTimes[hardness]!
+        minutesRemaining = eggTimes[hardness]!
+        secondsRemaining = 0
         
-        countdownEggTime(Minutes: result)
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil,repeats: true)
+        
     }
-
-    @IBOutlet weak var minuteCountdown: UILabel!
-    @IBOutlet weak var secondsCountdown: UILabel!
     
-    @objc func countdownEggTime(Minutes: Int) {
-        
-        
-        
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+    @objc func updateTimer() {
+
+        if minutesRemaining > 0 {
+            if secondsRemaining > 0 {
+                timerLabel.text = "\(minutesRemaining) MIN  \(secondsRemaining) SEC"
+                let percentageProgress = Float(timePassed) / Float(totalTime)
+                progressBar.progress = Float(percentageProgress)
+                timePassed += 1
+                secondsRemaining -= 1
             
-            let minutesToCount = Minutes
-            let secondsToCount = 0
-            
-            
-            
+            } else if secondsRemaining == 0 {
+                timerLabel.text = "\(minutesRemaining) MIN \(secondsRemaining) SEC"
+                
+                let percentageProgress = Float(timePassed) / Float(totalTime)
+                progressBar.progress = Float(percentageProgress)
+                timePassed += 1
+                
+                minutesRemaining -= 1
+                secondsRemaining = 60
+
+            }
+        } else {
+            if secondsRemaining > 0 {
+                timerLabel.text = "\(minutesRemaining) MIN \(secondsRemaining) SEC"
+                
+                let percentageProgress = Float(timePassed) / Float(totalTime)
+                progressBar.progress = Float(percentageProgress)
+                timePassed += 1
+                secondsRemaining -= 1
+            } else {
+                timer.invalidate()
+                timerLabel.text = "\(minutesRemaining) minutes, \(secondsRemaining) seconds."
+                timerLabel.text = "DONE!"
+                
+                let url = Bundle.main.url(forResource: "alarm_sound", withExtension: "mp3")
+                player = try! AVAudioPlayer(contentsOf: url!)
+                player.play()
+            }
         }
-
-        
     }
-    
-    
-    
 }
