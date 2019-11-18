@@ -50,8 +50,7 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="choicdeMade:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DkV-bS-TZw"/>
-                                            <action selector="choiceMade:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uYD-hK-tmc"/>
+                                            <action selector="choiceMade:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HmG-x4-Vkb"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="fwF-55-PpX">
@@ -70,7 +69,7 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="choicdeMade:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3dS-bb-SvB"/>
+                                            <action selector="choiceMade:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5ey-Vv-IXT"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -86,8 +85,8 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="choice1Button" destination="9QG-pg-Frw" id="aKS-Il-M1J"/>
-                        <outlet property="choice2Button" destination="fwF-55-PpX" id="xI3-ZP-r5j"/>
+                        <outlet property="choice1Button" destination="9QG-pg-Frw" id="un5-FY-2Ac"/>
+                        <outlet property="choice2Button" destination="fwF-55-PpX" id="Dy8-4r-yd0"/>
                         <outlet property="storyLabel" destination="rAa-Vz-35u" id="beF-Dg-X4J"/>
                     </connections>
                 </viewController>
